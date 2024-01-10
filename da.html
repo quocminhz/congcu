@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính Điểm</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        input {
+            width: 200px;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h2>Tính Điểm</h2>
+ <b>
+    <label for="subject1">Chuyên cần :</label>
+    <input type="number" id="subject1" placeholder="Nhập điểm" step="0.1"><br>
+
+    <label for="subject2">Kiểm tra:</label>
+    <input type="number" id="subject2" placeholder="Nhập điểm" step="0.1"><br>
+
+    <label for="subject3">Thi:</label>
+    <input type="number" id="subject3" placeholder="Nhập điểm" step="0.1"><br>
+</b>
+    <button onclick="calculateScore()"><b>Tính Điểm</b></button>
+
+    <p id="result"></p>
+<b>
+<script>
+    function calculateScore() {
+        var subject1 = parseFloat(document.getElementById('subject1').value) || 0;
+        var subject2 = parseFloat(document.getElementById('subject2').value) || 0;
+        var subject3 = parseFloat(document.getElementById('subject3').value) || 0;
+
+        // Kiểm tra giá trị hợp lệ (từ 0 đến 10)
+        if (isValidScore(subject1) && isValidScore(subject2) && isValidScore(subject3)) {
+            var weightedScore = (subject1 * 2) + (subject2 * 3) + (subject3 * 5);
+            var finalScore = weightedScore / 10;
+
+            var resultElement = document.getElementById('result');
+         resultElement.innerHTML = "<strong>Điểm cuối cùng: " + finalScore.toFixed(2) + "</strong>";
+
+            // Thay đổi màu sắc dựa trên điểm cuối cùng
+            if (finalScore < 4) {
+                resultElement.style.color = "red";
+            } else {
+                resultElement.style.color = "#45a049";
+            }
+        } else {
+            // Hiển thị thông báo lỗi nếu có
+            var resultElement = document.getElementById('result');
+            resultElement.innerHTML = "Vui lòng nhập điểm hợp lệ (từ 0 đến 10).";
+            resultElement.style.color = "black"; // Đặt lại màu sắc về mặc định
+        }
+    }
+
+    function isValidScore(score) {
+        return !isNaN(score) && score >= 0 && score <= 10;
+    }
+</script>
+</body>
+</html>
